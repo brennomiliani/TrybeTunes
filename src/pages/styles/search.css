@@ -5,7 +5,7 @@ form {
   width: 100%;
 }
 
-input {
+form input {
   border: 1px solid #3d495c;
   border-radius: 6px;
   margin-right: 1vw;
@@ -13,7 +13,7 @@ input {
   width: 30vw;
 }
 
-button {
+form button {
   background-color: royalblue;
   border-radius: 2px;
   color: white;
