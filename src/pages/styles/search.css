@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  justify-content: center;
+  margin-top: 2vw;
+  width: 100%;
+}
+
+input {
+  border: 1px solid #3d495c;
+  border-radius: 6px;
+  margin-right: 1vw;
+  padding: 0.5vw;
+  width: 30vw;
+}
+
+button {
+  background-color: royalblue;
+  border-radius: 2px;
+  color: white;
+  padding: 0.5vw 1.5vw;
+}

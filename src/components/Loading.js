@@ -2,6 +2,6 @@ import React, { Component } from 'react';
 
 export default class Loading extends Component {
   render() {
-    return <h2>Carregando...</h2>;
+    return <h4>Carregando...</h4>;
   }
 }

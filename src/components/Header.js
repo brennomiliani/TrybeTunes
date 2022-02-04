@@ -9,23 +9,22 @@ import userImg from '../images/user-solid.svg';
 export default class Header extends Component {
   state = {
     user: '',
-    loading: true,
   }
 
   async componentDidMount() {
     const user = await getUser();
-    this.setState({ user, loading: false });
+    this.setState({ user });
   }
 
   render() {
-    const { user, loading } = this.state;
+    const { user } = this.state;
     const headerContent = (
       <>
         <div className="top-content">
           <img src={ trybeTunesImg } alt="Trybetunes Logo" />
           <div>
             <img className="user-icon" src={ userImg } alt="user" />
-            <p data-testid="header-user-name">{user.name}</p>
+            {user.name ? <p data-testid="header-user-name">{user.name}</p> : <Loading />}
           </div>
         </div>
         <nav>
@@ -44,7 +43,7 @@ export default class Header extends Component {
 
     return (
       <header data-testid="header-component">
-        {loading ? <Loading /> : headerContent }
+        {headerContent}
       </header>
     );
   }
