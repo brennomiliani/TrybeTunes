@@ -42,9 +42,28 @@ export default class Search extends Component {
       searched: true });
   }
 
-  // renderAlbums = () => {
-  //   const
-  // };
+  renderAlbums = () => {
+    // mostrar imagem, nome do album e nome do artista
+    const { albums } = this.state;
+    // const { artistName, collectionId, collectionName, artworkUrl100 } = albums;
+
+    return (
+      albums.map((album) => (
+        <Link
+          data-testid={ `link-to-album-${album.collectionId}` }
+          key={ album.collectionId }
+          to={ `album/${album.collectionId}` }
+        >
+          <div className="album-card">
+            <img src={ album.artworkUrl100 } alt={ album.collectionName } />
+            <p className="album-title">{album.collectionName}</p>
+            <p className="album-artist">{album.artistName}</p>
+          </div>
+
+        </Link>
+      ))
+    );
+  };
 
   render() {
     const {
@@ -60,7 +79,7 @@ export default class Search extends Component {
       <>
         { (albums.length < 1 && searched) && notFound }
         { albums.length > 0 && found }
-        {/* { albums.length > 0 && this.renderAlbums() } */}
+        { albums.length > 0 && this.renderAlbums() }
       </>
     );
 
@@ -86,9 +105,7 @@ export default class Search extends Component {
               Pesquisar
             </button>
           </form>
-          <div className="album-list">
-            {loading ? <Loading /> : albumList}
-          </div>
+          {loading ? <Loading /> : albumList}
         </div>
       </>
     );
