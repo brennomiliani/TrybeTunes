@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap') ;
+
 .search-form {
   display: flex;
   justify-content: center;
@@ -13,6 +15,11 @@
   width: 30vw;
 }
 
+div > h2 {
+  margin: 1vw;
+  text-align: center;
+}
+
 .search-form > button {
   background-color: royalblue;
   border-radius: 2px;
@@ -25,6 +32,41 @@
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.album-card {
+  height: 290px;
+  margin-bottom: 20px;
+  width: 290px;
+}
+
+.album-card img {
+  border-radius: 10px 10px 0 0;
   width: 100%;
+  z-index: -1;
+}
+
+.album-card a {
+  margin: 20px;
+  text-decoration: none;
+}
+
+.card-text {
+  background-color: white;
+  border: 1px solid #bdc1c6;
+  border-radius: 0 0 10px 10px;
+  bottom: 110px;
+  font-family: Roboto , sans-serif;
+  height: 100px;
+  padding: 10px;
+  position: relative;
+}
+
+.album-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 5px;
 }

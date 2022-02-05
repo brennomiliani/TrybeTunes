@@ -49,17 +49,20 @@ export default class Search extends Component {
 
     return (
       albums.map((album) => (
+
         <Link
           data-testid={ `link-to-album-${album.collectionId}` }
-          key={ album.collectionId }
           to={ `album/${album.collectionId}` }
+          key={ album.collectionId }
         >
-          <div className="album-card">
+          <div id="album-card" className="album-card">
             <img src={ album.artworkUrl100 } alt={ album.collectionName } />
-            <p className="album-title">{album.collectionName}</p>
-            <p className="album-artist">{album.artistName}</p>
-          </div>
+            <div className="card-text">
+              <p className="album-title">{album.collectionName}</p>
+              <p className="album-artist">{album.artistName}</p>
+            </div>
 
+          </div>
         </Link>
       ))
     );
@@ -79,7 +82,9 @@ export default class Search extends Component {
       <>
         { (albums.length < 1 && searched) && notFound }
         { albums.length > 0 && found }
-        { albums.length > 0 && this.renderAlbums() }
+        <div className="album-container">
+          { albums.length > 0 && this.renderAlbums() }
+        </div>
       </>
     );
 
