@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import './styles/search.css';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -9,7 +10,9 @@ export default class Search extends Component {
     searchInput: '',
     btnDisabled: true,
     loading: false,
-    albuns: null,
+    albums: [],
+    searched: false,
+    prevSearch: '',
   };
 
   verifyBtn = () => {
@@ -31,15 +34,33 @@ export default class Search extends Component {
     const { searchInput } = this.state;
     this.setState({ loading: true });
     const result = await searchAlbumsAPI(searchInput);
-    this.setState({ searchInput: '', loading: false, albuns: result });
+    this.setState({
+      prevSearch: searchInput,
+      searchInput: '',
+      loading: false,
+      albums: result,
+      searched: true });
   }
 
+  // renderAlbums = () => {
+  //   const
+  // };
+
   render() {
-    const { searchInput, btnDisabled, albuns, loading } = this.state;
+    const {
+      searchInput,
+      btnDisabled,
+      albums,
+      loading,
+      searched,
+      prevSearch } = this.state;
+    const notFound = <h2>Nenhum álbum foi encontrado</h2>;
+    const found = <h2>{`Resultado de álbuns de: ${prevSearch}`}</h2>;
     const albumList = (
       <>
-        {loading && <Loading /> }
-        {console.log(albuns)}
+        { (albums.length < 1 && searched) && notFound }
+        { albums.length > 0 && found }
+        {/* { albums.length > 0 && this.renderAlbums() } */}
       </>
     );
 
@@ -65,7 +86,9 @@ export default class Search extends Component {
               Pesquisar
             </button>
           </form>
-          {albumList}
+          <div className="album-list">
+            {loading ? <Loading /> : albumList}
+          </div>
         </div>
       </>
     );

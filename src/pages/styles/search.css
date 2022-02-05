@@ -19,3 +19,11 @@
   color: white;
   padding: 0.5vw 1.5vw;
 }
+
+.album-list {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
