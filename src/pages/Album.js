@@ -39,15 +39,18 @@ export default class Album extends Component {
   renderPlayers = () => {
     const { musicArray } = this.state;
     const newArray = musicArray.filter((music) => music.kind === 'song').map((song) => (
-      <audio
-        key={ song.trackId }
-        data-testid="audio-component"
-        src={ song.previewUrl }
-        controls
-      >
-        <track kind="captions" />
-        O seu navegador não suporta o elemento audio.
-      </audio>
+      <>
+        <p>{song.trackName}</p>
+        <audio
+          key={ song.trackId }
+          data-testid="audio-component"
+          src={ song.previewUrl }
+          controls
+        >
+          <track kind="captions" />
+          O seu navegador não suporta o elemento audio.
+        </audio>
+      </>
     ));
     return newArray;
   }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
+import trybeTunesImg from '../images/trybetunesblack.png';
+import './styles/login.css';
 
 export default class Login extends Component {
   state = {
@@ -49,18 +51,18 @@ export default class Login extends Component {
   render() {
     const { nameInput, btnDisabled, loading } = this.state;
     return (
-      <div data-testid="page-login">
-        <form>
+      <div className="login-container" data-testid="page-login">
+        <img src={ trybeTunesImg } alt="trybe Tunes Logo" />
+        <form className="login-form">
 
-          <h2>Login Trybetunes</h2>
           <label htmlFor="name-input">
-            Nome:
             <input
               data-testid="login-name-input"
               id="name-input"
               onChange={ this.handleChange }
               value={ nameInput }
               name="nameInput"
+              placeholder="Nome"
             />
           </label>
           <button
