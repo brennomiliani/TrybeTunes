@@ -4,6 +4,7 @@ import getMusics from '../services/musicsAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import './styles/album.css';
+import MusicCard from '../components/MusicCard';
 
 export default class Album extends Component {
   state = {
@@ -39,18 +40,7 @@ export default class Album extends Component {
   renderPlayers = () => {
     const { musicArray } = this.state;
     const newArray = musicArray.filter((music) => music.kind === 'song').map((song) => (
-      <div key={ song.trackId } className="player-card">
-        <p>{song.trackName}</p>
-        <audio
-          data-testid="audio-component"
-          src={ song.previewUrl }
-          controls
-        >
-          <track kind="captions" />
-          O seu navegador não suporta o elemento audio.
-        </audio>
-        <input type="checkbox" name="favorite" />
-      </div>
+      <MusicCard key={ song.trackId } musicObj={ song } />
     ));
     return newArray;
   }
