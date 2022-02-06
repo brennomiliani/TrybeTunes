@@ -21,7 +21,7 @@ export default class Album extends Component {
   renderCard = () => {
     const { musicArray } = this.state;
     return (
-      <div className="album-card big-margin">
+      <div className="album-card">
         <img src={ musicArray[0].artworkUrl100 } alt={ musicArray[0].collectionName } />
         <div className="card-text">
           <p
@@ -39,10 +39,9 @@ export default class Album extends Component {
   renderPlayers = () => {
     const { musicArray } = this.state;
     const newArray = musicArray.filter((music) => music.kind === 'song').map((song) => (
-      <>
+      <div key={ song.trackId } className="player-card">
         <p>{song.trackName}</p>
         <audio
-          key={ song.trackId }
           data-testid="audio-component"
           src={ song.previewUrl }
           controls
@@ -50,7 +49,8 @@ export default class Album extends Component {
           <track kind="captions" />
           O seu navegador não suporta o elemento audio.
         </audio>
-      </>
+        <input type="checkbox" name="favorite" />
+      </div>
     ));
     return newArray;
   }
@@ -65,7 +65,9 @@ export default class Album extends Component {
           {loading && <Loading />}
 
           {musicArray.length > 0 && this.renderCard()}
-          {musicArray.length > 0 && this.renderPlayers()}
+          <div className="players-container">
+            {musicArray.length > 0 && this.renderPlayers()}
+          </div>
         </div>
       </>
     );
