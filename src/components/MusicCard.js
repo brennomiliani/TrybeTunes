@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class MusicCard extends Component {
   render() {
     const { musicObj } = this.props;
-    const { trackName, previewUrl } = musicObj;
+    const { trackId, trackName, previewUrl } = musicObj;
     return (
       <div className="player-card">
         <p>{trackName}</p>
@@ -16,7 +16,11 @@ export default class MusicCard extends Component {
           <track kind="captions" />
           O seu navegador não suporta o elemento audio.
         </audio>
-        <input type="checkbox" name="favorite" />
+        <input
+          data-testid={ `checkbox-music-${trackId}` }
+          type="checkbox"
+          name="favorite"
+        />
       </div>
     );
   }
@@ -24,7 +28,7 @@ export default class MusicCard extends Component {
 
 MusicCard.propTypes = {
   musicObj: PropTypes.shape({
-    trackId: PropTypes.string.isRequired,
+    trackId: PropTypes.number.isRequired,
     trackName: PropTypes.string.isRequired,
     previewUrl: PropTypes.string.isRequired,
   }).isRequired,
