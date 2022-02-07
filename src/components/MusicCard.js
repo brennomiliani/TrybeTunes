@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
+import './styles/musicCard.css';
 
 export default class MusicCard extends Component {
   state = {
     loading: false,
     checked: false,
+    checkStyle: { color: 'black' },
     favorites: [],
   };
 
@@ -22,11 +24,11 @@ export default class MusicCard extends Component {
     this.setState({ loading: true });
     if (checked) {
       const response = await removeSong(musicObj);
-      this.setState({ checked: false, loading: false });
+      this.setState({ checked: false, loading: false, checkStyle: { color: 'black' } });
       return (response);
     }
     const response = await addSong(musicObj);
-    this.setState({ checked: true, loading: false });
+    this.setState({ checked: true, loading: false, checkStyle: { color: 'red' } });
     return (response);
   };
 
@@ -42,7 +44,20 @@ export default class MusicCard extends Component {
   render() {
     const { musicObj } = this.props;
     const { trackId, trackName, previewUrl } = musicObj;
-    const { loading, checked, favorites } = this.state;
+    const { loading, checked, favorites, checkStyle } = this.state;
+    const input = (
+      <label className="custom-checkbox" htmlFor={ trackId }>
+        <i className="fas fa-heart" style={ checkStyle } checked={ checked } />
+        <input
+          id={ trackId }
+          data-testid={ `checkbox-music-${trackId}` }
+          type="checkbox"
+          name="favorite"
+          checked={ checked }
+          onChange={ this.favoritingSong }
+        />
+      </label>
+    );
     const card = (
       <div className="player-card">
         <p>{trackName}</p>
@@ -54,13 +69,7 @@ export default class MusicCard extends Component {
           <track kind="captions" />
           O seu navegador não suporta o elemento audio.
         </audio>
-        <input
-          data-testid={ `checkbox-music-${trackId}` }
-          type="checkbox"
-          name="favorite"
-          checked={ checked }
-          onChange={ this.favoritingSong }
-        />
+        {input}
       </div>
     );
 
