@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import './styles/profile.css';
+import userImg from '../images/user-solid.svg';
 
 export default class Profile extends Component {
   state = {
@@ -19,12 +21,15 @@ export default class Profile extends Component {
   render() {
     const { loading, user } = this.state;
     const { name, image, email, description } = user;
-    const icon = <i className="fas fa-user profile-edit" />;
+    const icon = <img className="user-icon big" src={ userImg } alt="user" />;
+    const imgTag = (
+      <img data-testid="profile-image" className="big" src={ image } alt="profile" />
+    );
     const profile = (
       <div className="profile-card">
-        <div className="profile-image">
-          {image ? <img data-testid="profile-image" src={ image } alt="profile" /> : icon}
-          <button type="button"><Link to="/profile/edit">Editar perfil</Link></button>
+        <div className="img-container">
+          {image ? imgTag : icon}
+          <Link to="/profile/edit"><button type="button">Editar perfil</button></Link>
         </div>
         <h4>Nome</h4>
         <p>{name}</p>
@@ -37,7 +42,7 @@ export default class Profile extends Component {
     return (
       <>
         <Header />
-        <div data-testid="page-profile">
+        <div className="profile-container" data-testid="page-profile">
           {loading ? <Loading /> : profile }
         </div>
       </>
