@@ -43,7 +43,7 @@ export default class MusicCard extends Component {
 
   render() {
     const { musicObj } = this.props;
-    const { trackId, trackName, previewUrl } = musicObj;
+    const { trackId, trackName, previewUrl, artworkUrl100 } = musicObj;
     const { loading, checked, favorites, checkStyle } = this.state;
     const input = (
       <label className="custom-checkbox" htmlFor={ trackId }>
@@ -60,6 +60,7 @@ export default class MusicCard extends Component {
     );
     const card = (
       <div className="player-card">
+        <img className="player-album-img" src={ artworkUrl100 } alt={ trackId } />
         <p>{trackName}</p>
         <audio
           data-testid="audio-component"
@@ -87,5 +88,6 @@ MusicCard.propTypes = {
     trackId: PropTypes.number.isRequired,
     trackName: PropTypes.string.isRequired,
     previewUrl: PropTypes.string.isRequired,
+    artworkUrl100: PropTypes.string.isRequired,
   }).isRequired,
 };

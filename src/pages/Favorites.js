@@ -3,6 +3,7 @@ import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
+import './styles/favorites.css';
 
 export default class Favorites extends Component {
   state = {
@@ -25,11 +26,15 @@ renderPlayers = () => {
 }
 
 render() {
-  const { loading } = this.state;
+  const { loading, favorites } = this.state;
+  const didntFavorite = (
+    !loading && <h2>Você ainda não tem musicas favoritas</h2>
+  );
   return (
     <>
       <Header />
-      <div data-testid="page-favorites">
+      <div data-testid="page-favorites" className="favorites-container">
+        {favorites.length < 1 && didntFavorite}
         {loading ? <Loading /> : this.renderPlayers()}
       </div>
     </>

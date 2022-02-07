@@ -5,3 +5,7 @@
 .player-card label {
   margin-left: 1vw;
 }
+
+.player-album-img {
+  display: none;
+}
