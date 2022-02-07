@@ -25,7 +25,7 @@ renderPlayers = () => {
 }
 
 render() {
-  const { loading, favorites } = this.state;
+  const { loading } = this.state;
   return (
     <>
       <Header />
