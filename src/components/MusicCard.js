@@ -50,7 +50,10 @@ export default class MusicCard extends Component {
     );
 
     return (
-      loading ? <Loading /> : card
+      <>
+        {loading ? <Loading /> : card}
+        {favorites && null}
+      </>
     );
   }
 }
