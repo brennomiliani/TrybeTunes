@@ -13,7 +13,7 @@ export default class MusicCard extends Component {
   componentDidMount = async () => {
     this.setState({ loading: true });
     const response = await getFavoriteSongs();
-    this.setState({ favorites: response, loading: false });
+    this.setState({ favorites: response, loading: false }, this.verifyfavorite);
   };
 
   favoritingSong = async () => {
@@ -22,6 +22,15 @@ export default class MusicCard extends Component {
     const response = await addSong(musicObj);
     this.setState({ checked: true, loading: false });
     return (response);
+  };
+
+  verifyfavorite = () => {
+    const { favorites } = this.state;
+    const { musicObj: { trackId } } = this.props;
+    const itFound = favorites.some((music) => music.trackId === trackId);
+    if (itFound) {
+      return this.setState({ checked: true });
+    }
   };
 
   render() {
