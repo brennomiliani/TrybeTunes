@@ -18,12 +18,14 @@ export default class Header extends Component {
 
   render() {
     const { user } = this.state;
+    const { image } = user;
+    const icon = <img className="user-icon" src={ userImg } alt="user" />;
     const headerContent = (
       <>
         <div className="top-content">
           <img src={ trybeTunesImg } alt="Trybetunes Logo" />
           <div>
-            <img className="user-icon" src={ userImg } alt="user" />
+            {image ? <img src={ image } className="user-icon" alt="profile" /> : icon}
             {user.name ? <p data-testid="header-user-name">{user.name}</p> : <Loading />}
           </div>
         </div>

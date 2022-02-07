@@ -44,6 +44,7 @@
 
 .img-container > .big {
   background-color: #dadada;
+  border: 2px solid black;
   border-radius: 50%;
   height: 80px;
   margin-right: 2vw;

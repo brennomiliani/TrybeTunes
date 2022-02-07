@@ -22,8 +22,12 @@ export default class ProfileEdit extends Component {
     });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
+    const { user } = this.state;
+    this.setState({ loading: true });
+    await updateUser(user);
+    this.setState({ loading: false });
   }
 
   componentDidMount = async () => {
@@ -37,13 +41,12 @@ export default class ProfileEdit extends Component {
     const { name, image, email, description } = user;
     const icon = <img className="user-icon big" src={ userImg } alt="user" />;
     const form = (
-      <form className="profile-form">
+      <form onChange={ this.handleChange } className="profile-form">
 
         <div className="img-container">
-          {image ? <img src={ image } className="big" alt="profile" /> : icon}
+          {image ? <img src={ image } className="big" alt={ `imagem ${name}` } /> : icon}
           <input
             placeholder="URL da imagem"
-            onChange={ this.handleChange }
             data-testid="edit-input-image"
             name="image"
             type="text"
@@ -56,7 +59,6 @@ export default class ProfileEdit extends Component {
           <p>Fique à vontade para usar seu nome social</p>
           <input
             name="name"
-            onChange={ this.handleChange }
             data-testid="edit-input-name"
             value={ name }
             type="text"
@@ -71,7 +73,6 @@ export default class ProfileEdit extends Component {
           <input
             data-testid="edit-input-email"
             name="email"
-            onChange={ this.handleChange }
             value={ email }
             type="email"
             id="email-input"
@@ -82,7 +83,6 @@ export default class ProfileEdit extends Component {
         <label htmlFor="description-input">
           <h4>Descrição</h4>
           <textarea
-            onChange={ this.handleChange }
             data-testid="edit-input-description"
             name="description"
             value={ description }
