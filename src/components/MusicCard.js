@@ -37,7 +37,7 @@ export default class MusicCard extends Component {
     const { musicObj: { trackId } } = this.props;
     const itFound = favorites.some((music) => music.trackId === trackId);
     if (itFound) {
-      return this.setState({ checked: true });
+      return this.setState({ checked: true, checkStyle: { color: 'red' } });
     }
   };
 
