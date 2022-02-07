@@ -19,10 +19,11 @@ export default class Profile extends Component {
   render() {
     const { loading, user } = this.state;
     const { name, image, email, description } = user;
+    const icon = <i className="fas fa-user profile-edit" />;
     const profile = (
       <div className="profile-card">
         <div className="profile-image">
-          <img data-testid="profile-image" src={ image } alt="profile" />
+          {image ? <img data-testid="profile-image" src={ image } alt="profile" /> : icon}
           <button type="button"><Link to="/profile/edit">Editar perfil</Link></button>
         </div>
         <h4>Nome</h4>
