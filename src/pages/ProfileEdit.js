@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { getUser, updateUser } from '../services/userAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -9,6 +10,8 @@ export default class ProfileEdit extends Component {
   state = {
     loading: false,
     user: {},
+    finish: false,
+    btnDisabled: true,
   }
 
   handleChange = ({ target }) => {
@@ -19,25 +22,35 @@ export default class ProfileEdit extends Component {
         ...user,
         [name]: value,
       },
-    });
+    }, this.verifyForm);
   }
+
+  verifyForm = () => {
+    const { user } = this.state;
+    const { name, image, email, description } = user;
+    if (name && image && email && description) {
+      this.setState({ btnDisabled: false });
+    } else {
+      this.setState({ btnDisabled: true });
+    }
+  };
 
   handleSubmit = async (event) => {
     event.preventDefault();
     const { user } = this.state;
     this.setState({ loading: true });
     await updateUser(user);
-    this.setState({ loading: false });
+    this.setState({ loading: false, finish: true });
   }
 
   componentDidMount = async () => {
     this.setState({ loading: true });
     const userObj = await getUser();
-    this.setState({ loading: false, user: userObj });
+    this.setState({ loading: false, user: userObj }, this.verifyForm);
   }
 
   render() {
-    const { loading, user } = this.state;
+    const { loading, user, finish, btnDisabled } = this.state;
     const { name, image, email, description } = user;
     const icon = <img className="user-icon big" src={ userImg } alt="user" />;
     const form = (
@@ -96,6 +109,7 @@ export default class ProfileEdit extends Component {
           onClick={ this.handleSubmit }
           data-testid="edit-button-save"
           type="submit"
+          disabled={ btnDisabled }
         >
           Salvar
 
@@ -107,6 +121,7 @@ export default class ProfileEdit extends Component {
         <Header />
         <div className="profile-edit" data-testid="page-profile-edit">
           {loading ? <Loading /> : form}
+          {finish && <Redirect to="/profile" />}
         </div>
       </>
     );
